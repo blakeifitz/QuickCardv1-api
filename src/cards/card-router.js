@@ -1,0 +1,104 @@
+const path = require('path');
+const express = require('express');
+const xss = require('xss');
+const CardService = require('./card-service');
+
+const cardRouter = express.Router();
+const jsonParser = express.json();
+
+const serializeCard = card => ({
+    id: card.id,
+    keyword: xss(card.keyword),
+    definition: xss(card.definition),
+    deck: card.deck,
+})
+
+cardRouter
+.route('/')
+.get((req, res, next) =>{
+    const knexInstance = req.app.get('db')
+    CardService.getAllCards(knexInstance)
+    .then(card => {
+        return res.json(card.map(serializeCard))
+    })
+    .catch(next)
+})
+
+.post(jsonParser, (req, res, next) => {
+    const knexInstance = req.app.get('db')
+    const {deck, keyword, definition} = req.body
+    const newCard = { deck, keyword, definition}
+
+    for( const [key, value] of Object.entries(newCard))
+    if( (value || key) == undefined)
+    return res.status(400).json({
+        error: { message: `Improper Format`}
+    })
+    CardService.addCard(knexInstance, newCard)
+    .then(card => {
+        res.status(201)
+        .location(path.join(req.originalUrl, `/${card.id}`))
+        .json(serializeCard(card))
+    })
+    .catch(next)
+})
+
+cardRouter
+.route('/:card_id')
+.all((req, res, next) => {
+
+CardService.getById(
+    req.app.get('db'),
+    req.params.card_id
+)
+.then( card => {
+        if(!card){
+            return res.status(404).json({
+                error: {message: 'not a card'}
+            })
+        }
+        res.card = card
+        next()
+    })
+    .catch(next)
+})
+
+.get((req, res, next) => {
+    res.json(serializeCard(res.card))
+})
+
+.delete((req, res, next) => {
+    CardService.deleteCard(
+        req.app.get('db'),
+        req.params.card_id
+    )
+    .then(() => {
+        return res.status(204).end()
+    })
+    .catch(next)
+})
+
+.patch(jsonParser, (req, res, next) => {
+    const {keyword, definition} = req.body
+    const updatedCard = {keyword, definition};
+
+const numberOfValues = Object.values(updatedCard).filter(Boolean).length
+    if(numberOfValues === 0)
+        return res.status(400).json({
+            error: {
+                message: `Must update at least one input`
+            }
+        })
+            CardService.updateCard(
+                req.app.get('db'),
+                req.params.card_id,
+                updatedCard
+            )
+    .then(rows => {
+        return res.status(204).end()
+    })
+.catch(next)
+
+})
+
+module.exports = cardRouter

@@ -1,5 +1,5 @@
 {
-  "name": "Node_Plate",
+  "name": "quickcard",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,26 +7,34 @@
     "test": "mocha --require test/setup.js",
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
+    "migrate": "postgrator --config postgrator-config.js",
+    "migrate:production": "heroku run npm run migrate",
+    "migrate:test": "env NODE_ENV=test npm run migrate",
     "predeploy": "npm audit",
-    "deploy": "git push heroku main"
+    "deploy": "git push heroku main",
+    "postdeploy": "npm run migrate:production"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/blakeifitz/Node_Plate.git"
+    "type": "git"
   },
   "keywords": [],
+  "engines": {
+       "node": "14.15.0"
+     },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/blakeifitz/Node_Plate/issues"
-  },
-  "homepage": "https://github.com/blakeifitz/Node_Plate#readme",
+  "bugs": {},
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "helmet": "^4.2.0",
-    "morgan": "^1.10.0"
+    "knex": "^0.21.14",
+    "morgan": "^1.10.0",
+    "pg": "^8.5.1",
+    "postgrator": "^4.1.1",
+    "postgrator-cli": "^4.0.0",
+    "xss": "^1.0.8"
   },
   "devDependencies": {
     "chai": "^4.2.0",
