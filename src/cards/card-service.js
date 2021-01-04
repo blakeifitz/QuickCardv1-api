@@ -1,35 +1,34 @@
 const CardService = {
-    getAllCards(knex){
-        return(knex)
-        .select('*')
-        .from('cards')
-    },
-    addCard(knex, newCard){
-        return knex.insert(newCard)
-        .into('cards')
-        .returning('*')
-        .then( rows => {
-            return rows[0]
-        })
-    },
+  getAllCards(knex, user_id) {
+    return knex.select("*").from("cards").where("user_id", user_id);
+  },
+  addCard(knex, newCard) {
+    return knex
+      .insert(newCard)
+      .into("cards")
+      .returning("*")
+      .then((rows) => {
+        return rows[0];
+      });
+  },
 
-    getById(knex, id){
-        return knex.from('cards')
-        .select('*')
-        .where('id', id).first()
-    },
+  getById(knex, id, user_id) {
+    return knex.from("cards").select("*")
+    .where({ id: id, user_id: user_id })
+    .first();
+  },
 
-    deleteCard(knex, id){
-        return knex('cards')
-        .where({id})
-        .delete()
-    },
+  deleteCard(knex, id, user_id) {
+    return knex("cards")
+    .where({ id: id, user_id: user_id })
+    .delete();
+  },
 
-    updateCard(knex, id, updatedFields){
-        return knex('cards')
-        .where({ id})
-        .update(updatedFields)
-    }
-}
+  updateCard(knex, id, updatedFields, user_id) {
+    return knex("cards")
+    .where({ id: id, user_id: user_id })
+    .update(updatedFields);
+  },
+};
 
-module.exports = CardService
+module.exports = CardService;

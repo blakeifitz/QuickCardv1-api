@@ -4,8 +4,10 @@ const morgan = require("morgan");
 const cors = require("cors");
 const helmet = require("helmet");
 const { NODE_ENV } = require("./config");
-const deckRouter = require("./decks/deck-router");
-const cardRouter = require("./cards/card-router");
+const deckRouter = require("./Decks/deck-router");
+const cardRouter = require("./Cards/card-router");
+const authRouter = require('./Auth/auth-router');
+const usersRouter = require('./users/users-router');
 
 const app = express();
 
@@ -14,10 +16,10 @@ const morganOption = NODE_ENV === "production" ? "tiny" : "common";
 app.use(morgan(morganOption));
 app.use(helmet());
 app.use(cors());
-
-app.use('/api/deck', deckRouter);
-
-app.use('/api/card', cardRouter);
+app.use("/api/auth", authRouter)
+app.use("/api/deck", deckRouter);
+app.use("/api/card", cardRouter);
+app.use("/api/users", usersRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello, world!");

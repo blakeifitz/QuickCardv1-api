@@ -5,5 +5,7 @@ CREATE TABLE cards (
     keyword TEXT NOT NULL,
     definition TEXT NOT NULL,
     deck INTEGER
-        REFERENCES decks(id) ON DELETE CASCADE NOT NULL
-)
+        REFERENCES decks(id) ON DELETE CASCADE NOT NULL,
+     user_id INTEGER
+        REFERENCES users(id) ON DELETE CASCADE NOT NULL
+);
