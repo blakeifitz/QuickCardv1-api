@@ -60,7 +60,7 @@ cardRouter
       .then((card) => {
         if (!card) {
           return res.status(404).json({
-            error: { message: "not a card" },
+            error: { message: "That card doesn't exist" },
           });
         }
         res.card = card;

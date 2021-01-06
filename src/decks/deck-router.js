@@ -8,10 +8,12 @@ const deckRouter = express.Router();
 const jsonParser = express.json();
 
 const serializeDeck = (deck) => ({
-  id: deck.id,
+  
+  created: new Date(deck.created),
   deck_name: xss(deck.deck_name),
   description: xss(deck.description),
-  created: deck.created,
+  id: deck.id,
+  
 });
 
 deckRouter
@@ -66,7 +68,7 @@ deckRouter
         if (!deck) {
           return res.status(404).json({
             error: {
-              message: `does not exist`,
+              message: `That deck doesn't exist`,
             },
           });
         }
