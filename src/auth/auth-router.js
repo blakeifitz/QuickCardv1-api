@@ -19,11 +19,13 @@ authRouter.post("/login", jsonBodyParser,(req, res, next) => {
 
   AuthService.getUserWithUserName(req.app.get("db"), loginUser.user_name)
     .then((dbUser) => {
-      if (!dbUser)
+      if (!dbUser){
+        console.log("auth-router.js, dbUser NOT FOUND", dbUser)
         return res.status(400).json({
           error: "Incorrect user_name or password",
-        })
+        })}
        
+        console.log("auth-router.js, dbUser", dbUser)
 
       return AuthService.comparePasswords(
         loginUser.password,
