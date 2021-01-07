@@ -2,7 +2,7 @@ const path = require("path");
 const express = require("express");
 const xss = require("xss");
 const DeckService = require("./deck-service");
-const { requireAuth } = require("../auth/jwt-Auth");
+const { requireAuth } = require("../auth/jwt-auth");
 
 const deckRouter = express.Router();
 const jsonParser = express.json();
