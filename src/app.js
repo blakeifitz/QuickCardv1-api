@@ -12,19 +12,18 @@ const usersRouter = require('./users/users-router');
 const app = express();
 
 const morganOption = NODE_ENV === "production" ? "tiny" : "common";
-var corsOptions = {
-  origin: '*',
-  optionsSuccessStatus: 200 
-}
 
-app.options('*', cors(corsOptions))
+
+app.options('*', cors())
 app.use(morgan(morganOption));
 app.use(helmet());
+app.use(cors());
 
 app.use("/api/auth", authRouter);
 app.use("/api/deck", deckRouter);
 app.use("/api/card", cardRouter);
 app.use("/api/users", usersRouter);
+
 
 app.get("/", (req, res) => {
   res.send("Hello, world!");
