@@ -7,7 +7,7 @@ const { NODE_ENV } = require("./config");
 const deckRouter = require("./decks/deck-router");
 const cardRouter = require("./cards/card-router");
 const authRouter = require('./auth/auth-router');
-const usersRouter = require('./users/users-router');
+//const usersRouter = require('./users/users-router');
 
 const app = express();
 
@@ -28,7 +28,7 @@ app.use(cors())
 app.use("/api/auth", authRouter);
 app.use("/api/deck", deckRouter);
 app.use("/api/card", cardRouter);
-app.use("/api/users", usersRouter);
+//app.use("/api/users", usersRouter);
 
 
 app.use(function errorHandler(error, req, res, next) {
