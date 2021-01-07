@@ -5,8 +5,6 @@ const config = require("../config");
 const AuthService = {
   getUserWithUserName(db, user_name) {
     console.log("auth-service.js getUserWithUser-name, user_name", user_name);
-    console.log("db.client.connectionSettings", db.client.connectionSettings)
-    console.log("db.client.config", db.client.config)
     return db("users").where({ user_name }).first();
   },
   comparePasswords(password, hash) {
