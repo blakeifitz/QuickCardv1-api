@@ -16,11 +16,7 @@ const morganOption = NODE_ENV === "production" ? "tiny" : "common";
 
 app.use(morgan(morganOption));
 app.use(helmet());
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "https://quick-cardv1-client-k30jeixto.vercel.app/");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+app.use(cors({origin: 'http://localhost:3000'}));
 
 app.use("/api/auth", authRouter)
 app.use("/api/deck", deckRouter);
