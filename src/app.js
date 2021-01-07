@@ -7,19 +7,12 @@ const { NODE_ENV } = require("./config");
 const deckRouter = require("./decks/deck-router");
 const cardRouter = require("./cards/card-router");
 const authRouter = require('./auth/auth-router');
-//const usersRouter = require('./users/users-router');
+const usersRouter = require('./users/users-router');
 
 const app = express();
 
 const morganOption = NODE_ENV === "production" ? "tiny" : "common";
 
-
-app.all('*', function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
-  next();
-});
 
 app.use(morgan(morganOption));
 app.use(helmet());
@@ -28,7 +21,7 @@ app.use(cors())
 app.use("/api/auth", authRouter);
 app.use("/api/deck", deckRouter);
 app.use("/api/card", cardRouter);
-//app.use("/api/users", usersRouter);
+app.use("/api/users", usersRouter);
 
 
 app.use(function errorHandler(error, req, res, next) {
