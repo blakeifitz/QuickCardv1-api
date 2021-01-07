@@ -18,6 +18,10 @@ app.use(morgan(morganOption));
 app.use(helmet());
 app.use(cors());
 
+app.use((req, res, next) => {
+  console.log("app.js, req, res", req, res)
+  next()
+});
 
 app.use("/api/deck", deckRouter);
 app.use("/api/card", cardRouter);
@@ -31,7 +35,7 @@ app.get('/', (req, res) =>{
 app.use(function errorHandler(error, req, res, next) {
   let response;
   if (NODE_ENV === "production") {
-    response = { error: { message: "server error" } };
+    response = { error:  "server error" };
   } else {
     console.error(error);
     response = { message: error.message, error };s
