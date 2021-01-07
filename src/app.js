@@ -6,7 +6,7 @@ const helmet = require("helmet");
 const { NODE_ENV } = require("./config");
 const deckRouter = require("./Decks/deck-router");
 const cardRouter = require("./Cards/card-router");
-const authRouter = require('./Auth/auth-router');
+const authRouter = require('./Decks/Auth/auth-router');
 const usersRouter = require('./users/users-router');
 
 const app = express();
@@ -38,7 +38,7 @@ app.use(function errorHandler(error, req, res, next) {
     response = { error: { message: "server error" } };
   } else {
     console.error(error);
-    response = { message: error.message, error };
+    response = { message: error.message, error };s
   }
   res.status(500).json(response);
 });
