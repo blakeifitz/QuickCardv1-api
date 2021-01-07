@@ -16,7 +16,7 @@ const morganOption = NODE_ENV === "production" ? "tiny" : "common";
 app.use(morgan(morganOption));
 app.use(helmet());
 app.use("/api/auth", authRouter)
-app.use(cors());
+app.options('*', cors())
 app.use("/api/deck", deckRouter);
 app.use("/api/card", cardRouter);
 app.use("/api/users", usersRouter);
