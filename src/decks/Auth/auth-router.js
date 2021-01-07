@@ -4,6 +4,13 @@ const AuthService = require("./auth-service");
 const authRouter = express.Router();
 const jsonBodyParser = express.json();
 
+app.all('*', function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
+
 authRouter.post("/login", jsonBodyParser, (req, res, next) => {
   const { user_name, password } = req.body;
   const loginUser = { user_name, password };
@@ -19,7 +26,8 @@ authRouter.post("/login", jsonBodyParser, (req, res, next) => {
       if (!dbUser)
         return res.status(400).json({
           error: "Incorrect user_name or password",
-        });
+        })
+        .catch(next)
 
       return AuthService.comparePasswords(
         loginUser.password,
