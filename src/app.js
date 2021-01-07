@@ -4,9 +4,9 @@ const morgan = require("morgan");
 const cors = require("cors");
 const helmet = require("helmet");
 const { NODE_ENV } = require("./config");
-const deckRouter = require("./Decks/deck-router");
-const cardRouter = require("./Cards/card-router");
-const authRouter = require('./Decks/Auth/auth-router');
+const deckRouter = require("./decks/deck-router");
+const cardRouter = require("./cards/card-router");
+const authRouter = require('./auth/auth-router');
 const usersRouter = require('./users/users-router');
 
 const app = express();
