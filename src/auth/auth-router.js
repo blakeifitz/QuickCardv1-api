@@ -39,6 +39,7 @@ authRouter.post("/login", jsonBodyParser,(req, res, next) => {
         });
       });
     })
+    .catch(next);
 });
 
 module.exports = authRouter;
