@@ -2,7 +2,7 @@ const path = require("path");
 const express = require("express");
 const xss = require("xss");
 const CardService = require("./card-service");
-const { requireAuth } = require("../Auth/jwt-Auth");
+const { requireAuth } = require("../auth/jwt-auth");
 
 const cardRouter = express.Router();
 const jsonParser = express.json();
