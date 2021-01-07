@@ -12,15 +12,14 @@ const usersRouter = require('./users/users-router');
 const app = express();
 
 const morganOption = NODE_ENV === "production" ? "tiny" : "common";
+const corsOptions = {
+  origin: 'https://quick-cardv1-client-jav1v75nw.vercel.app/',
+}
 
 app.use(morgan(morganOption));
 app.use(helmet());
-app.use(cors());
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "https://quick-cardv1-client-jav1v75nw.vercel.app");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+app.use(cors(corsOptions));
+
 app.use("/api/auth", authRouter)
 app.use("/api/deck", deckRouter);
 app.use("/api/card", cardRouter);
