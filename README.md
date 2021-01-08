@@ -22,7 +22,7 @@ This project was created to shorten the time doing of doing a regular, helpful, 
 
  Here are the following endpoints:
  
- *all endpoints are prefixed with /api
+ * all endpoints are prefixed with /api
 
 - /auth/login
   - POST to get authenicated 
