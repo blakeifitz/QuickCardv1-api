@@ -13,8 +13,7 @@ _As a user:_
 - You can edit without leaving page.
 
 
-This is my first PERN application with full CRUD operations. This is the client side of the application and uses React with vanilla css. I am using React-Router for navigation, and a combination of context and state for UI/component management. There is smoke testing implemented for all components. A custom Fav Icon using favicon.io.
-
+This is my first PERN application with full CRUD operations. This is the backend of the application and uses PostgresSQL, Express as an application framework, and runs on node.  Deployed on Heroku Hobby Server. There is testing implemented for each endpoint.
 
 This project was created to shorten the time doing of doing a regular, helpful, repetitive job. I was inspired by a computers ability to do repetitive tasks exactly the same every time, and in an extremely short amount of time. For the next version I would like to improve my card creating algorithim, styling, and remove context from state management.
 
