@@ -1,26 +1,43 @@
-# Express Boilerplate!
+# _QuickCard_
+ ## *https://quick-cardv1-client.blakeifitz.vercel.app/*
 
-This is a boilerplate project used for starting new projects!
+### This is QuickCard, an application to streamline the flashcard making process.
 
-## Set up
+_As a user:_
 
-Complete the following steps to start a new project (NEW-PROJECT-NAME):
+- You can create an account to save and access secure decks of flashcards.
+- You can create, delete, and edit flashcards using your notes you have already typed up.
+- You can look at card by itself and switch between the front and the back.
+- You can separate your keyword/phrase and definition pairs by a variety of symbols.
+- You can save decks that cannot be accessed by other users.
+- You can edit without leaving page.
 
-1. Clone this repository to your local machine `git clone BOILERPLATE-URL NEW-PROJECTS-NAME`
-2. `cd` into the cloned repository
-3. Make a fresh start of the git history for this project with `rm -rf .git && git init`
-4. Install the node dependencies `npm install`
-5. Move the example Environment file to `.env` that will be ignored by git and read by the express server `mv example.env .env`
-6. Edit the contents of the `package.json` to use NEW-PROJECT-NAME instead of `"name": "express-boilerplate",`
 
-## Scripts
+This is my first PERN application with full CRUD operations. This is the backend of the application and uses PostgresSQL, Express as an application framework, and runs on node.  Deployed on Heroku Hobby Server. There is testing implemented for each endpoint.
 
-Start the application `npm start`
+This project was created to shorten the time doing of doing a regular, helpful, repetitive job. I was inspired by a computers ability to do repetitive tasks exactly the same every time, and in an extremely short amount of time. For the next version I would like to improve my card creating algorithim, styling, and remove context from state management.
 
-Start nodemon for the application `npm run dev`
 
-Run the tests `npm test`
 
-## Deploying
+ Here are the following endpoints:
+ 
+ * all endpoints are prefixed with /api
 
-When your new project is ready for deployment, add a new Heroku application with `heroku create`. This will make a new git remote called "heroku" and you can then `npm run deploy` which will push to this remote's main branch.
+- /auth/login
+  - POST to get authenicated 
+- /deck
+  - GET to get all decks for user
+  - POST to create a deck
+- /deck/deck_id
+  -GET to get deck by id
+  -DELETE to delete deck by id
+  -PATCH to modify deck by id
+- /card
+  - GET to get all cards for user
+  - POST to create a card
+- /card/card_id
+  -GET to get card by id
+  -DELETE to delete card by id
+  - PATCH to modify card by id
+- /user
+  -POST to create user
