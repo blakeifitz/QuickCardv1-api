@@ -26,7 +26,8 @@ const DeckService = {
   },
 
   updateDeck(knex, id, updatedDeck, user_id) {
-    return knex("decks")
+    return knex
+    .from("decks")
       .where("user_id", user_id)
       .where({ id })
       .update(updatedDeck);

@@ -3,6 +3,9 @@
 
 ### This is QuickCard, an application to streamline the flashcard making process.
 
+<img align="left" src="screenshots\notes.png" />
+<img align="top" src="screenshots\card.png" />
+
 _As a user:_
 
 - You can create an account to save and access secure decks of flashcards.
@@ -15,7 +18,7 @@ _As a user:_
 
 This is my first PERN application with full CRUD operations. This is the backend of the application and uses PostgresSQL, Express as an application framework, and runs on node.  Deployed on Heroku Hobby Server. There is testing implemented for each endpoint.
 
-This project was created to shorten the time doing of doing a regular, helpful, repetitive job. I was inspired by a computers ability to do repetitive tasks exactly the same every time, and in an extremely short amount of time. For the next version I would like to improve my card creating algorithim, styling, and remove context from state management.
+This project was created to shorten the time doing of doing a regular, helpful, repetitive job. I was inspired by a computers ability to do repetitive tasks exactly the same every time, and in an extremely short amount of time. For the next version I would like to improve my card creating algorithm, styling, and remove context from state management.
 
 
 
@@ -28,16 +31,21 @@ This project was created to shorten the time doing of doing a regular, helpful, 
 - /deck
   - GET to get all decks for user
   - POST to create a deck
+    - requires body { deck_name, description, created }
 - /deck/deck_id
-  -GET to get deck by id
-  -DELETE to delete deck by id
-  -PATCH to modify deck by id
+  - GET to get deck by id
+  - DELETE to delete deck by id
+  - PATCH to modify deck by id
+    - requires at least one updated field
 - /card
   - GET to get all cards for user
   - POST to create a card
+    - requires body {deck Id, keyword, definition }
 - /card/card_id
-  -GET to get card by id
-  -DELETE to delete card by id
+  - GET to get card by id
+  - DELETE to delete card by id
   - PATCH to modify card by id
+    - requires at least one updated field
 - /user
-  -POST to create user
+  - POST to create user
+    - requires body  { password, user_name, full_name, nickname }

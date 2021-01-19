@@ -25,7 +25,8 @@ const CardService = {
   },
 
   updateCard(knex, id, updatedFields, user_id) {
-    return knex("cards")
+    return knex
+    .from("cards")
     .where({ id: id, user_id: user_id })
     .update(updatedFields);
   },
