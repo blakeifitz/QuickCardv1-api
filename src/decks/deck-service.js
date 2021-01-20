@@ -1,13 +1,13 @@
 const DeckService = {
   getAllDecks(knex, user_id) {
-    return knex.from("decks").select("*").where("user_id", user_id);
+    return knex.from('decks').select('*').where('user_id', user_id);
   },
 
   addDeck(knex, newDeck) {
     return knex
       .insert(newDeck)
-      .into("decks")
-      .returning("*")
+      .into('decks')
+      .returning('*')
       .then((rows) => {
         return rows[0];
       });
@@ -15,20 +15,20 @@ const DeckService = {
 
   getById(knex, id, user_id) {
     return knex
-      .from("decks")
+      .from('decks')
       .where({ id: id, user_id: user_id })
-      .select("*")
-      .first()
+      .select('*')
+      .first();
   },
 
   deleteDeck(knex, id, user_id) {
-    return knex("decks").where({ id: id, user_id: user_id }).delete();
+    return knex('decks').where({ id: id, user_id: user_id }).delete();
   },
 
   updateDeck(knex, id, updatedDeck, user_id) {
     return knex
-    .from("decks")
-      .where("user_id", user_id)
+      .from('decks')
+      .where('user_id', user_id)
       .where({ id })
       .update(updatedDeck);
   },

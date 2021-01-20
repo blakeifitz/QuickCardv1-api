@@ -1,28 +1,26 @@
-const path = require("path");
-const express = require("express");
-const xss = require("xss");
-const DeckService = require("./deck-service");
-const { requireAuth } = require("../auth/jwt-auth");
+const path = require('path');
+const express = require('express');
+const xss = require('xss');
+const DeckService = require('./deck-service');
+const { requireAuth } = require('../auth/jwt-auth');
 
 const deckRouter = express.Router();
 const jsonParser = express.json();
 
 const serializeDeck = (deck) => ({
-  
   created: new Date(deck.created),
   deck_name: xss(deck.deck_name),
   description: xss(deck.description),
   id: deck.id,
-  
 });
 
 deckRouter
-  .route("/")
+  .route('/')
 
   .all(requireAuth)
 
   .get((req, res, next) => {
-    const knexInstance = req.app.get("db");
+    const knexInstance = req.app.get('db');
     const user_id = req.user.id;
 
     DeckService.getAllDecks(knexInstance, user_id)
@@ -33,7 +31,7 @@ deckRouter
   })
 
   .post(jsonParser, (req, res, next) => {
-    const knexInstance = req.app.get("db");
+    const knexInstance = req.app.get('db');
     const { deck_name, description, created } = req.body;
     const newDeck = { deck_name, description };
 
@@ -57,12 +55,12 @@ deckRouter
 
 deckRouter
 
-  .route("/:deck_id")
+  .route('/:deck_id')
   .all(requireAuth)
   .all((req, res, next) => {
-    const knexInstance = req.app.get("db");
+    const knexInstance = req.app.get('db');
     const user_id = req.user.id;
-    console.log(user_id)
+    console.log(user_id);
     DeckService.getById(knexInstance, req.params.deck_id, user_id)
       .then((deck) => {
         if (!deck) {
@@ -84,7 +82,7 @@ deckRouter
 
   .delete((req, res, next) => {
     const user_id = req.user.id;
-    DeckService.deleteDeck(req.app.get("db"), req.params.deck_id, user_id)
+    DeckService.deleteDeck(req.app.get('db'), req.params.deck_id, user_id)
       .then(() => {
         return res.status(204).end();
       })
@@ -104,7 +102,7 @@ deckRouter
         },
       });
     DeckService.updateDeck(
-      req.app.get("db"),
+      req.app.get('db'),
       req.params.deck_id,
       updatedDeck,
       user_id

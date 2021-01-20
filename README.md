@@ -1,5 +1,6 @@
 # _QuickCard_
- ## *https://quick-cardv1-client.blakeifitz.vercel.app/*
+
+## *https://quick-cardv1-client.blakeifitz.vercel.app/*
 
 ### This is QuickCard, an application to streamline the flashcard making process.
 
@@ -15,37 +16,37 @@ _As a user:_
 - You can save decks that cannot be accessed by other users.
 - You can edit without leaving page.
 
-
-This is my first PERN application with full CRUD operations. This is the backend of the application and uses PostgresSQL, Express as an application framework, and runs on node.  Deployed on Heroku Hobby Server. There is testing implemented for each endpoint.
+This is my first PERN application with full CRUD operations. This is the backend of the application and uses PostgresSQL, Express as an application framework, and runs on node. Deployed on Heroku Hobby Server. There is testing implemented for each endpoint.
 
 This project was created to shorten the time doing of doing a regular, helpful, repetitive job. I was inspired by a computers ability to do repetitive tasks exactly the same every time, and in an extremely short amount of time. For the next version I would like to improve my card creating algorithm, styling, and remove context from state management.
 
+Due to a compatibility issue between heroku and the browser you must add ```javascript pg.defaults.ssl = true; const { PORT, DATABASE_URL } = require('./config');```
+Adding the header manually through CORS was not a working solution. To run locally comment out those two lines to prevent security conflicts.
 
+Here are the following endpoints:
 
- Here are the following endpoints:
- 
- * all endpoints are prefixed with /api
+- all endpoints are prefixed with /api
 
-- /auth/login
-  - POST to get authenicated 
-- /deck
+* /auth/login
+  - POST to get authenicated
+* /deck
   - GET to get all decks for user
   - POST to create a deck
     - requires body { deck_name, description, created }
-- /deck/deck_id
+* /deck/deck_id
   - GET to get deck by id
   - DELETE to delete deck by id
   - PATCH to modify deck by id
     - requires at least one updated field
-- /card
+* /card
   - GET to get all cards for user
   - POST to create a card
     - requires body {deck Id, keyword, definition }
-- /card/card_id
+* /card/card_id
   - GET to get card by id
   - DELETE to delete card by id
   - PATCH to modify card by id
     - requires at least one updated field
-- /user
+* /user
   - POST to create user
-    - requires body  { password, user_name, full_name, nickname }
+    - requires body { password, user_name, full_name, nickname }

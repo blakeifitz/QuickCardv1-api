@@ -1,8 +1,8 @@
-const path = require("path");
-const express = require("express");
-const xss = require("xss");
-const CardService = require("./card-service");
-const { requireAuth } = require("../auth/jwt-auth");
+const path = require('path');
+const express = require('express');
+const xss = require('xss');
+const CardService = require('./card-service');
+const { requireAuth } = require('../auth/jwt-auth');
 
 const cardRouter = express.Router();
 const jsonParser = express.json();
@@ -15,10 +15,10 @@ const serializeCard = (card) => ({
 });
 
 cardRouter
-  .route("/")
+  .route('/')
   .all(requireAuth)
   .get((req, res, next) => {
-    const knexInstance = req.app.get("db");
+    const knexInstance = req.app.get('db');
     const user_id = req.user.id;
     CardService.getAllCards(knexInstance, user_id)
       .then((card) => {
@@ -28,7 +28,7 @@ cardRouter
   })
 
   .post(jsonParser, (req, res, next) => {
-    const knexInstance = req.app.get("db");
+    const knexInstance = req.app.get('db');
     const { deck, keyword, definition } = req.body;
     const newCard = { deck, keyword, definition };
 
@@ -51,10 +51,10 @@ cardRouter
   });
 
 cardRouter
-  .route("/:card_id")
+  .route('/:card_id')
   .all(requireAuth)
   .all((req, res, next) => {
-    const knexInstance = req.app.get("db");
+    const knexInstance = req.app.get('db');
     const user_id = req.user.id;
     CardService.getById(knexInstance, req.params.card_id, user_id)
       .then((card) => {
@@ -75,7 +75,7 @@ cardRouter
 
   .delete((req, res, next) => {
     const user_id = req.user.id;
-    CardService.deleteCard(req.app.get("db"), req.params.card_id, user_id)
+    CardService.deleteCard(req.app.get('db'), req.params.card_id, user_id)
       .then(() => {
         return res.status(204).end();
       })
@@ -94,10 +94,12 @@ cardRouter
           message: `Must update at least one input`,
         },
       });
-    CardService.updateCard(req.app.get("db"),
-     req.params.card_id,
+    CardService.updateCard(
+      req.app.get('db'),
+      req.params.card_id,
       updatedCard,
-      user_id)
+      user_id
+    )
       .then((rows) => {
         return res.status(204).end();
       })
